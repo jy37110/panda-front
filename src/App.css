@@ -24,3 +24,11 @@ body{
   margin-top: 10px;
   width: 300px;
 }
+.login-err-msg{
+  margin: 0;
+  text-align: left;
+  color: white;
+  background-color: darkred;
+  padding: 2px 0 2px 8px;
+  font-size: 0.8rem;
+}

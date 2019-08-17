@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavDropdown, Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 class NavBar extends Component {
     constructor(props){
@@ -11,22 +12,26 @@ class NavBar extends Component {
     }
 
     handleSignInBtnClicked = () => {
-        window.location = 'login';
+        this.props.history.push('/login');
     };
 
     handleSignOutBtnClicked = () => {
+        this.props.dispatch({type: 'user logout'});
+        this.props.history.push('/login');
+    };
 
+    handleTestBtnClicked = () => {
+        console.log(this.props);
     };
 
     render() {
         return (
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+                <Navbar.Brand href="/">Navbar</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="#features">Features</Nav.Link>
-                    <Nav.Link href="#pricing">Pricing</Nav.Link>
-                    <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                    <Nav.Link href="/Dashboard">Dashboard</Nav.Link>
+                    <Nav.Link href="/Editor">Editor</Nav.Link>
+                    <NavDropdown title="Statistic" id="basic-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
@@ -37,6 +42,7 @@ class NavBar extends Component {
                 <Form inline>
                     <Button variant="outline-info" onClick={this.props.userState.login ? this.handleSignOutBtnClicked : this.handleSignInBtnClicked}>
                         {this.props.userState.login ? "SIGN OUT" : "SIGN IN"}</Button>
+                    <Button variant="outline-info" onClick={this.handleTestBtnClicked}>Test</Button>
                 </Form>
             </Navbar>
         );
@@ -46,5 +52,5 @@ class NavBar extends Component {
 const mapStateToProps = state => {
     return state;
 };
-
-export default connect (mapStateToProps)(NavBar);
+const NavBarWithRouter = withRouter(NavBar);
+export default connect (mapStateToProps)(NavBarWithRouter);

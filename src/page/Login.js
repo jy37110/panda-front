@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
 import {Button, Form} from 'react-bootstrap';
+import { connect } from 'react-redux';
 
-export default class Login extends Component{
+class Login extends Component{
     constructor(props){
         super(props);
         this.state = {
             userLogin: false,
+            displayErr: false,
+            errorMessage: null,
         };
         this.userId = null;
         this.password = null;
@@ -15,9 +18,14 @@ export default class Login extends Component{
             alert("Please enter both ID and Password!");
         } else {
             this.userLoginAsync().then(data =>{
-                console.log(data);
+                if(data.IsSuccess){
+                    this.setState({displayErr: false, errorMessage: null});
+                    this.props.dispatch({type: 'user login', token: data.Data});
+                    this.props.history.push("/");
+                } else {
+                    this.setState({displayErr: true, errorMessage: data.ErrorMessage});
+                }
             });
-            //console.log(p);
         }
     };
     handlePasswordChange = (e) =>{
@@ -29,20 +37,20 @@ export default class Login extends Component{
     userLoginAsync = async () => {
         const response = await fetch('https://ql0nzrabe5.execute-api.us-west-2.amazonaws.com/beta/auth',{
             method: 'POST',
-            //mode: 'no-cors',
-            body: {
-                "Action": "Login",
-                "Data": {
-                    "Id": this.userId,
-                    "Password": this.password
+            body: JSON.stringify({
+                Action: "Login",
+                Data: {
+                    Id: this.userId,
+                    Password: this.password
                 }
-            },
+            }),
             headers: {
                 'Content-Type': 'application/json',
             }
         });
         return await response.json();
     };
+
     render() {
         return (
             <div className="login-container">
@@ -54,6 +62,7 @@ export default class Login extends Component{
                     <Form.Group controlId="formBasicPassword">
                         <Form.Control type="password" placeholder="Password" onChange={this.handlePasswordChange}/>
                     </Form.Group>
+                    {this.state.displayErr ? <p className="login-err-msg">{this.state.errorMessage}</p> : null}
                     <Button className="login-btn" variant="primary" type="button" onClick={this.handleLoginBtnClick}>
                         Login
                     </Button>
@@ -62,3 +71,8 @@ export default class Login extends Component{
         );
     }
 }
+
+const mapStateToProps = state => {
+    return state
+};
+export default connect (mapStateToProps)(Login)
