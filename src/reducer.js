@@ -18,6 +18,12 @@ const invoiceReducer = (state = {}, action) => {
             return Object.assign({}, state, {invoices: action.invoices});
         case "user logout":
             return Object.assign({}, state, {invoices: []});
+        case "delete invoice":
+            let newState = Object.assign({}, state);
+            newState.invoices = newState.invoices.filter(item => {
+                return item.invoiceId !== action.invoiceId;
+            });
+            return newState;
         default:
             return state;
     }

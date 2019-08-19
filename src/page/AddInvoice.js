@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { Form, Button, Row, Col, Container, Alert } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import ErrorAlert from '../component/ErrorAlert';
+import SuccessAlert from '../component/SuccessAlert';
 
 class AddInvoice extends Component{
     constructor(props){
@@ -121,7 +123,7 @@ class AddInvoice extends Component{
                         <Button variant="secondary" onClick={this.handleXBtnClick}>X</Button>
                     </Row>
                     <Row className="justify-content-center">
-                        <Col lg={12} md={10} sm={8}>
+                        <Col lg={12} md={12} sm={12}>
                             <h3 className="add-invoice-title"> Adding New Record</h3>
                             <Form className="add-invoice-form">
                                 <Form.Group controlId="formItemName">
@@ -161,28 +163,20 @@ class AddInvoice extends Component{
                                 </Form.Group>
 
                                 {this.state.hasError ?
-                                    <Alert variant="danger" onClose={() => this.setState({hasError: false, errorMessage: null})} dismissible>
-                                        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-                                        <p>
-                                            {this.state.errorMessage}
-                                        </p>
-                                    </Alert> : null}
+                                    <ErrorAlert
+                                        errorMessage = {this.state.errorMessage}
+                                        handleAction = {() => this.setState({hasError: false, errorMessage: null})}
+                                    />
+                                    : null}
 
                                 {this.state.hasSuccess ?
-                                    <Alert variant="success">
-                                        <Alert.Heading>Congratulations!</Alert.Heading>
-                                        <p>
-                                            {this.state.successMessage}
-                                        </p>
-                                        <hr />
-                                        <div className="d-flex justify-content-end">
-                                            <Button onClick={() => this.setState({hasSuccess: false, successMessage: null})} variant="outline-success">
-                                                Got it!
-                                            </Button>
-                                        </div>
-                                    </Alert>
+                                    <SuccessAlert
+                                        successMessage = {this.state.successMessage}
+                                        handleAction = {this.handleXBtnClick}
+                                    />
                                     : null
                                 }
+
                                 <Button className="add-record-submit-btn" variant="outline-primary" type="button" onClick={this.handleSubmitBtnClick}>Submit</Button>
                             </Form>
                         </Col>

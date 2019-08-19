@@ -5,11 +5,11 @@ html{
 }
 body{
   height: 100%;
+  background-color: #bbbbbb !important;
 }
 #root{
   text-align: center;
   background-color: #bbbbbb;
-  height: 100%;
 }
 .login-container{
   width: 400px;
