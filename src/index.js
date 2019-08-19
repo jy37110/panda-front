@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import configureStore from './configureStore';
 
 const { store, persistor } = configureStore();
-store.dispatch({type: "initial user state"});
+store.dispatch({type: "initial state"});
 ReactDOM.render(
     <Provider store = {store}>
         <PersistGate loading={null} persistor={persistor}>
