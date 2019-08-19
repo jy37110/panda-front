@@ -12,7 +12,13 @@ class InvoiceTable extends Component{
             hasError: false,
             errorMessage: null,
             hasSuccess: false,
-            successMessage: null
+            successMessage: null,
+            sortNameDescendOrder: false,
+            sortCategoryDescendOrder: false,
+            sortDateDescendOrder: false,
+            sortTotalAmountDescendOrder: false,
+            sortTypeDescendOrder: false,
+            sortDailyAmountDescendOrder: false,
         }
     }
 
@@ -54,6 +60,53 @@ class InvoiceTable extends Component{
         return await response.json();
     };
 
+    handleSortByNameClick = () => {
+        if(this.state.sortNameDescendOrder){
+            this.props.dispatch({type:'sort by name',order:'inc'});
+        } else {
+            this.props.dispatch({type:'sort by name',order:'dec'});
+        }
+        this.setState({sortNameDescendOrder: !this.state.sortNameDescendOrder});
+    };
+    handleSortByCategoryClick = () => {
+        if(this.state.sortCategoryDescendOrder){
+            this.props.dispatch({type:'sort by category',order:'inc'});
+        } else {
+            this.props.dispatch({type:'sort by category',order:'dec'});
+        }
+        this.setState({sortCategoryDescendOrder: !this.state.sortCategoryDescendOrder});
+    };
+    handleSortByDateClick = () => {
+        if(this.state.sortDateDescendOrder){
+            this.props.dispatch({type:'sort by date',order:'inc'});
+        } else {
+            this.props.dispatch({type:'sort by date',order:'dec'});
+        }
+        this.setState({sortDateDescendOrder: !this.state.sortDateDescendOrder});
+    };
+    handleSortByTotalAmountClick = () => {
+        if(this.state.sortTotalAmountDescendOrder){
+            this.props.dispatch({type:'sort by total amount',order:'inc'});
+        } else {
+            this.props.dispatch({type:'sort by total amount',order:'dec'});
+        }
+        this.setState({sortTotalAmountDescendOrder: !this.state.sortTotalAmountDescendOrder});
+    };
+    handleSortByTypeClick = () => {
+        if(this.state.sortTypeDescendOrder){
+            this.props.dispatch({type:'sort by type',order:'inc'});
+        } else {
+            this.props.dispatch({type:'sort by type',order:'dec'});
+        }
+        this.setState({sortTypeDescendOrder: !this.state.sortTypeDescendOrder});    };
+    handleSortByDailyAmountClick = () => {
+        if(this.state.sortDailyAmountDescendOrder){
+            this.props.dispatch({type:'sort by daily amount',order:'inc'});
+        } else {
+            this.props.dispatch({type:'sort by daily amount',order:'dec'});
+        }
+        this.setState({sortDailyAmountDescendOrder: !this.state.sortDailyAmountDescendOrder});    };
+
     render() {
         return (
             <div className="invoice-table-container">
@@ -71,14 +124,16 @@ class InvoiceTable extends Component{
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Date</th>
-                        <th>Total Amount</th>
-                        <th>Type</th>
-                        <th>Daily Amount</th>
+                        <th><Button className="editor-table-header-btn" size="sm" onClick={this.handleSortByNameClick}>Name</Button></th>
+                        <th><Button className="editor-table-header-btn" size="sm" onClick={this.handleSortByCategoryClick}>Category</Button></th>
+                        <th><Button className="editor-table-header-btn" size="sm" onClick={this.handleSortByDateClick}>Date</Button></th>
+                        <th><Button className="editor-table-header-btn" size="sm" onClick={this.handleSortByTotalAmountClick}>Total Amount</Button></th>
+                        <th><Button className="editor-table-header-btn" size="sm" onClick={this.handleSortByTypeClick}>Type</Button></th>
+                        <th><Button className="editor-table-header-btn" size="sm" onClick={this.handleSortByDailyAmountClick}>Daily Amount</Button></th>
                         <th>
-                            Options
+                            <Button className="editor-table-header-btn" size="sm">
+                                Options
+                            </Button>
                             <Button className="add-btn" variant="outline-success" size="sm" onClick={this.handleAddBtnClick}>Add</Button>
                         </th>
                     </tr>
@@ -94,7 +149,7 @@ class InvoiceTable extends Component{
                                     <td>{new Date(item.happenedAt.toString()).toLocaleDateString()}</td>
                                     <td>{item.totalAmount}</td>
                                     <td>{item.duration}</td>
-                                    <td>{item.amountByDay}</td>
+                                    <td>{item.amountByDay.toFixed(2)}</td>
                                     <td>
                                         <Button className="delete-btn" variant="outline-danger" onClick={() => this.handleDelBtnClick(item.invoiceId)}>Del</Button>
                                     </td>

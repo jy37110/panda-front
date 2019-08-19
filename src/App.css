@@ -66,3 +66,10 @@ body{
 .add-record-submit-btn{
   margin-top: 20px;
 }
+.editor-table-header-btn{
+  color: black !important;
+  background-color: #bbbbbb !important;
+  border: none !important;
+  font-weight: 600 !important;
+  font-size: 1.1rem !important;
+}
