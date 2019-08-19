@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Form} from 'react-bootstrap';
 import { connect } from 'react-redux';
+const jwt = require('jsonwebtoken');
 
 class Login extends Component{
     constructor(props){
@@ -17,13 +18,14 @@ class Login extends Component{
         if(this.userId === null || this.password === null){
             alert("Please enter both ID and Password!");
         } else {
-            this.userLoginAsync().then(data =>{
-                if(data.IsSuccess){
+            this.userLoginAsync().then(response =>{
+                if(response.IsSuccess){
                     this.setState({displayErr: false, errorMessage: null});
-                    this.props.dispatch({type: 'user login', token: data.Data});
+                    let userData = jwt.verify(response.Data, "panda_secret");
+                    this.props.dispatch({type: 'user login', token: response.Data, userId: userData.id.S, userName: userData.name.S});
                     this.props.history.push("/");
                 } else {
-                    this.setState({displayErr: true, errorMessage: data.ErrorMessage});
+                    this.setState({displayErr: true, errorMessage: response.ErrorMessage});
                 }
             });
         }

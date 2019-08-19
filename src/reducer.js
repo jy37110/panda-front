@@ -1,11 +1,11 @@
 const userStateReducer = (state = {}, action) => {
     switch(action.type){
         case "user login":
-            return Object.assign({}, state, {login: true, token: action.token});
+            return Object.assign({}, state, {login: true, token: action.token, userId: action.userId, userName: action.userName});
         case "user logout":
-            return Object.assign({}, state, {login: false, token: null});
+            return Object.assign({}, state, {login: false, token: null, userId: null, userName: null});
         case "initial user state":
-            return Object.assign({}, state, {login: false, token: null});
+            return Object.assign({}, state, {login: false, token: null, userId: null, userName: null});
         default:
             return state;
     }

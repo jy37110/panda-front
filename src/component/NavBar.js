@@ -29,8 +29,8 @@ class NavBar extends Component {
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand href="/">Navbar</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="/Dashboard">Dashboard</Nav.Link>
-                    <Nav.Link href="/Editor">Editor</Nav.Link>
+                    <Nav.Link href={this.props.userState.login ? "/Dashboard" : "/login"}>Dashboard</Nav.Link>
+                    <Nav.Link href={this.props.userState.login ? "/Editor" : "/login"}>Editor</Nav.Link>
                     <NavDropdown title="Statistic" id="basic-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
