@@ -43,3 +43,26 @@ body{
   padding: 0 10px 0 10px !important;
   margin-left: 10px;
 }
+.add-invoice-container{
+  width: 90%;
+  margin: 50px auto 0 auto;
+  background-color: white;
+  box-shadow: 5px 10px 8px #888888;
+  border-radius: 5px;
+}
+.add-invoice-form{
+  padding: 30px;
+  text-align: left;
+}
+.react-datepicker-wrapper{
+  width: 100%;
+}
+.react-datepicker__input-container{
+  width: 100%;
+}
+.add-invoice-title{
+  padding-top: 10px;
+}
+.add-record-submit-btn{
+  margin-top: 20px;
+}

@@ -6,6 +6,7 @@ import Home from './page/Home';
 import Login from './page/Login';
 import Editor from './page/Editor';
 import Dashboard from './page/Dashboard';
+import AddInvoice from './page/AddInvoice';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path = '/login' component = {Login}/>
             <Route path = '/editor' component = {Editor}/>
             <Route path = '/dashboard' component = {Dashboard}/>
+            <Route path = '/add-invoice' component = {AddInvoice}/>
         </Switch>
     </Router>
   );

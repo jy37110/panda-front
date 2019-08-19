@@ -1,7 +1,7 @@
 import React , { Component } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import {connect} from "react-redux";
-
+import { withRouter } from 'react-router';
 
 class InvoiceTable extends Component{
     constructor(props){
@@ -9,6 +9,11 @@ class InvoiceTable extends Component{
         this.state = {
         }
     }
+
+    handleAddBtnClick = () => {
+        this.props.history.push('/add-invoice')
+    };
+
     render() {
         return (
             <div className="invoice-table-container">
@@ -24,7 +29,7 @@ class InvoiceTable extends Component{
                         <th>Daily Amount</th>
                         <th>
                             Options
-                            <Button className="add-btn" variant="outline-success" size="sm">Add</Button>
+                            <Button className="add-btn" variant="outline-success" size="sm" onClick={this.handleAddBtnClick}>Add</Button>
                         </th>
                     </tr>
                     </thead>
@@ -58,4 +63,5 @@ const mapStateToProps = state => {
     return state
 };
 
-export default connect (mapStateToProps)(InvoiceTable)
+const InvoiceTableWithRouter = withRouter(InvoiceTable);
+export default connect (mapStateToProps)(InvoiceTableWithRouter);
