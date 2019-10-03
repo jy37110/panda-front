@@ -8,6 +8,9 @@ class Editor extends Component{
         this.state = {
             userLogin: false
         };
+    }
+
+    componentDidMount(){
         this.loadInvoicesFromServer().then(response => {
             this.invoices = this.AWSDataMapper(response);
             this.props.dispatch({type: 'sync invoice', invoices: this.invoices});
@@ -18,12 +21,15 @@ class Editor extends Component{
         if(!response.IsSuccess) return [];
         else {
             return response.Data.map(item => {
+                let temp = item.happened_at.S.split('/');
+                let happenedAt = temp[2] + "-" + temp[1] + "-" + temp[0] + "T00:00:00";
                 return {
                     name: item.name.S,
                     category: item.category.S,
                     duration: item.duration.S,
                     totalAmount: Number(item.total_amount.N),
-                    happenedAt: new Date(item.happened_at.S),
+                    // happenedAt: new Date(item.happened_at.S),
+                    happenedAt: new Date(happenedAt),
                     amountByDay: Number(item.amount_by_day.N),
                     invoiceId: item.invoice_id.S
                 }

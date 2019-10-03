@@ -146,7 +146,7 @@ class InvoiceTable extends Component{
                                     <td>{index + 1}</td>
                                     <td>{item.name}</td>
                                     <td>{item.category}</td>
-                                    <td>{new Date(item.happenedAt.toString()).toLocaleDateString()}</td>
+                                    <td>{item.happenedAt == null ? "" : new Date(item.happenedAt.toString()).toLocaleDateString()}</td>
                                     <td>{item.totalAmount}</td>
                                     <td>{item.duration}</td>
                                     <td>{item.amountByDay.toFixed(2)}</td>
